@@ -14,10 +14,7 @@
             }
             
             header h1{
-                font-size: 80px;
-                text-align: center;
-                line-height: 150px;
-                color: #FFFFFF;
+              hola grupo
             }
             
             nav{
@@ -49,7 +46,7 @@
             }
 
             .nav li a {
-                background-color:#5C0808;
+                background-color:orang;
                 color:#fff;
                 text-decoration:none;
                 padding:10px 12px;
