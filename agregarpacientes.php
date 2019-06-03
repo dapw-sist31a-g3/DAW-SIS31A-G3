@@ -2,20 +2,6 @@
 session_start();
 include 'persona.php';
 ?>
-
-
-<?php
-
-if (isset($_SESSION["admin"])) {
-include("administrador.php");
-}elseif(isset($_SESSION["usuario"])){
-  include("cliente.php");
-}else{
-header("location: index.php");
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -34,7 +20,7 @@ header("location: index.php");
 	   <!--este codigo ayuda para que cuando ingresemos datos al formulario ya apretemos el boton ingresar este tome los dato y haga la coneccion correcta con la base de datos--->
 	    <script type="text/javascript">
             function cargar(id,nombre,dui,edad,direccion,telefono,nacimiento){
-                
+                document.frmpersona.textid.value=id;
                 document.frmpersona.textnombre.value=nombre;
                 document.frmpersona.textdui.value=dui;
                 document.frmpersona.textedad.value=edad;
@@ -62,9 +48,14 @@ background
 
 background-repeat: no-repeat;
 background-size: 100% 720px;
-width:auto;
-background-color: darkslateblue;
-height:50px;
+width:100%;
+background-color: #051376;
+height:80px;
+position: fixed;
+left:0;
+top:0;
+    
+    
 }
 
     /*Este header2 esta dentro del header principal 1 y este contiene una imagen como color chicle con un ancho de 250 y altura de 50 px*/
@@ -106,14 +97,14 @@ display: block;
 
 /*Este es el que contiene el formulario .Esta seccion esta a la par del menu y este contiene un formulario para ingresar datos*/
 .seccion2{
-width:1098px;
+width:1300px;
 background-color:white;
-height:607px;
-    margin-right: 150px;
-float: right;
+height:auto;
+margin-left: 40px;
+float: left;
 box-shadow: 4px 1px 1px 1px rgba(,0,0,0.3); 
-display: block;
     border-color: black;
+    margin-top: 80px;
 
 }
     
@@ -134,19 +125,20 @@ border-spacing:6px;
 /*estilos para los botones*/
 .btn1{
 border:none;
-padding: 20px 85px;
-text-decoration: none;
-text-shadow: 0 1px 0 rgba(255,255,255,0.3);
-width: 250px;
-font-size: 20px;
+height: 80px;
+
+width: 110px;
+font-size: 15px;
 font-family: Agency FB;
+     text-align: left;
+
 }
 
     
 /*estilos de los botones que contiene el menu principal*/    
 .btn-greenmenu{
 color: white;
-background-color: black;
+background-color:#051376;
 }
 .btn-greenmenu:hover{
 background-color: darkred;	
@@ -155,7 +147,7 @@ background-color: darkred;
     
     
 .none{
-
+float: left;
 }
 
 /*estilo del formulario principal en donde colocaremos los datos */
@@ -376,7 +368,8 @@ background-color: #3CC93F;
 
     .seccion3{
         float: right;
-        
+        height: auto;
+        width: auto;
     } 
     
 
@@ -390,9 +383,22 @@ background-color: #3CC93F;
        
  
  <!--header principal-->      
+<header class="header1">
+  
+  <!--lheader secundario que esta arriba del menu-->
+ <form action="inicio.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="inicio"></form>
+      <form action="agregarpacientes.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Agregar Pacientes"> </form>
+      <form action="agregardoctores.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Agregar Doctores"></form>
+      <form action="agregarcitas.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Realizar Una sita"></form>
+       <form action="buscarcitas.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Consulta de citas"></form>
+       <form action="buscarpaciente.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Consulta de Pacientes"></form>
+       <form action="buscardoctores.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Consulta de Doctores"></form>
+       <form action="servicios.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Servicios de Pacientes"></form>
+    
+   
+</header>
 
 <!--seccion donde se emcuentra el menu con sus respectivos enlaces-->
-
 
 
 <!--seccion dos donde se encuentra el formulario y sus botonew -->
@@ -426,30 +432,33 @@ background-color: #3CC93F;
            </p>
            
 
+ID:
+<input type="text" name=txtid class="form-control"><br>
+
 
 NOMBRES:
-<input type="text" name=txtnombre class="form-control" required><br>
+<input type="text" name=txtnombre class="form-control"><br>
 
 
 DUI:
-<input type="text" name=txtdui class="form-control" required><br>
+<input type="text" name=txtdui class="form-control"><br>
 
 
 EDAD 
-<input type="number" name=txtedad class="form-control" required><br>
+<input type="number" name=txtedad class="form-control"><br>
 
 
 DIRECCION:
-<input type="text" name=txtdireccion class="form-control" required><br>
+<input type="text" name=txtdireccion class="form-control"><br>
 
 
 TELEFONO:
-<input type="tel" name=txttelefono class="form-control" required><br>
+<input type="text" name=txttelefono class="form-control"><br>
 
 
 
 NACIMIENTO:
-<input type="date" name=txtnacimiento class="form-control" required><br>
+<input type="date" name=txtnacimiento class="form-control"><br>
 
 
 <input type="submit" name=btningresar value=Agregar class="btn btn-green">
@@ -473,7 +482,7 @@ NACIMIENTO:
 $per=new persona();
 
 if(isset($_REQUEST["btningresar"])){
-$per->agregar($_REQUEST["txtnombre"],$_REQUEST["txtdui"],$_REQUEST["txtedad"],$_REQUEST["txtdireccion"],$_REQUEST["txttelefono"],$_REQUEST["txtnacimiento"]);
+$per->agregar($_REQUEST["txtid"],$_REQUEST["txtnombre"],$_REQUEST["txtdui"],$_REQUEST["txtedad"],$_REQUEST["txtdireccion"],$_REQUEST["txttelefono"],$_REQUEST["txtnacimiento"]);
 
 print $per->mostrar22();
 
@@ -493,11 +502,11 @@ print $per->mostrar22();
 
 
 ?>
- <form action=pdfreportegeneralpacientes/index.php method=post> <input type="submit" value="Ver Reportes" class="btn btn-green3"></form>
+ <form action=pdfreportegeneral/index.php method=post> <input type="submit" value="Ver Reportes" class="btn btn-green3"></form>
  
 </section>
 
-    
+   
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery.min.js"></script>

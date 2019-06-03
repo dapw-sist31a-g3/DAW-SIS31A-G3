@@ -2,22 +2,6 @@
 session_start();
 include 'persona.php';
 ?>
-
-
-<?php
-
-if (isset($_SESSION["admin"])) {
-include("administrador.php");
-}elseif(isset($_SESSION["usuario"])){
-  include("cliente.php");
-}else{
-header("location: index.php");
-}
-?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -60,12 +44,12 @@ background
 
 /*Este es el header y le damos un fondo de imagen se fondo*/
 .header1{
-background-image: url("1.jpg");
+
 background-repeat: no-repeat;
 background-size: 100% 720px;
 width:auto;
 background-color: darkslateblue;
-height:50px;
+height:80px;
 }
 
     /*Este header2 esta dentro del header principal 1 y este contiene una imagen como color chicle con un ancho de 250 y altura de 50 px*/
@@ -111,7 +95,6 @@ width:1098px;
 background-color:white;
 height:607px;
 float: right;
-     margin-right: 200px;
 box-shadow: 4px 1px 1px 1px rgba(,0,0,0.3); 
 display: block;
     border-color: black;
@@ -135,19 +118,20 @@ border-spacing:6px;
 /*estilos para los botones*/
 .btn1{
 border:none;
-padding: 20px 85px;
-text-decoration: none;
-text-shadow: 0 1px 0 rgba(255,255,255,0.3);
-width: 250px;
-font-size: 20px;
+height: 80px;
+
+width: 110px;
+font-size: 15px;
 font-family: Agency FB;
+     text-align: left;
+
 }
 
     
 /*estilos de los botones que contiene el menu principal*/    
 .btn-greenmenu{
 color: white;
-background-color: black;
+background-color: darkslateblue;
 }
 .btn-greenmenu:hover{
 background-color: darkred;	
@@ -156,7 +140,8 @@ background-color: darkred;
     
     
 .none{
-
+float:left;
+    margin-left: 2px;
 }
 
 /*estilo del formulario principal en donde colocaremos los datos */
@@ -380,75 +365,7 @@ background-color: #3CC93F;
         
     } 
     
-    .contarpacientes{
-        background-color: darkcyan;
-        color: aliceblue;
-        height: 100px;
-        width: 250px;
-        font-size: 30px;
-         float: left;
-        padding: 20px 15px;
-        
-    }
-    
-    
-    .contardoctores{
-        background-color: darkred;
-        color: aliceblue;
-        height: 100px;
-        width: 250px;
-        font-size: 30px;
-        float: left;
-        padding: 20px 15px;
-        
-        margin-left: 20px;
-    }
-    
-    .contarcitas{
-        background-color:midnightblue;
-        color: aliceblue;
-        height: 100px;
-        width: 250px;
-        font-size: 30px;
-        float: left;
-        padding: 20px 15px;
-        
-        margin-left: 20px;
-    }
-    
-    
-    .contarcitasactualmente{
-        background-color:orange;
-        color: aliceblue;
-        height: 100px;
-        width: 250px;
-        font-size: 30px;
-        float: left;
-        padding: 20px 15px;
-        
-        margin-left: 20px;
-    }
-    
-    .etiketapcontar{
-       font-size: 15px; 
-    }
-    
-    .citasactuales{
-        
-        border-left-style: groove;
-        border-bottom: groove;
-        border-left-color: blue;
-        border-bottom-color: darkgoldenrod;
-        color: black;
-        height: 300px;
-        width: 1150px;
-        font-size: 30px;
-        float: left;
-        padding: 20px 15px;
-        
-   margin-top: 30px;
-    }
-   
+
 </style>
 
 </head>
@@ -457,8 +374,26 @@ background-color: #3CC93F;
  
  
        
+ 
+ <!--header principal-->      
+<header class="header1">
+  <table width=900px>
+      <tr>
+          <td><form action="inicio.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="inicio"></form></center>
+      <form action="agregarpacientes.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Agregar Pacientes"> </form>
+      <form action="agregardoctores.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Agregar Doctores"></form>
+      <form action="agregarcitas.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Realizar Una sita"></form>
+       <form action="buscarcitas.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Consulta de citas"></form>
+       <form action="buscarpaciente.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Consulta de Pacientes"></form>
+       <form action="buscardoctores.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Consulta de Doctores"></form>
+       <form action="servicios.php" class="none"><input type="submit" class="btn1 btn-greenmenu" value="Servicios de Pacientes"></form>
+   </td>
+      </tr>
+  </table>
+   
+</header>
 
-
+<!--seccion donde se emcuentra el menu con sus respectivos enlaces-->
 
 
 <!--seccion dos donde se encuentra el formulario y sus botonew -->
@@ -468,85 +403,48 @@ background-color: #3CC93F;
 <br><br>
    
   <!--Bbotton de categoria Desabilitado-->   
-<b><p>Categoria<input type="submit" value="Inicio" class="categoriabtn" disabled></p></b><br>
+<b><p>Categoria<input type="submit" value="Agregar Doctores" class="categoriabtn" disabled></p></b>
+    
+ <select>
+ <option>hola</option>
+ <option>jje</option>
+ <option>kaka</option>
+ <option>rara</option>
+ <option>lol<option>
+ </select>
  
-
-<!--seccio n de color donde se encuentra conteo de pacientes -->
-<section class=contarpacientes>
-
-<?php
-    
-$per=new persona();
-
-print $per->countpacientes();
-?>
-
-<p class=etiketapcontar>Pacientes</p>
-</section> 
-
  
-  
-<!--seccion de color donde se encuentra conteo de doctores-->
-
-<section class=contardoctores>
-
-<?php
-    
-$per=new persona();
-
-print $per->countdoctores();
-?>
-
-<p class=etiketapcontar>Doctores</p>
-</section>
-
-<!--seccion de color donde se encuentra conteo de citas-->
- <section class=contarcitas>
-
-<?php
-    
-$per=new persona();
-
-print $per->countcitas();
-?>
-
-<p class=etiketapcontar>Citas</p>
-</section>
-   
- <section class=contarcitasactualmente>
-
-<?php
-    
-$per=new persona();
-
-print $per->countcitasactuales();
-?>
-
-<p class=etiketapcontar>Citas Actuales</p>
-</section>  
-   
-   
-<!--seccion de color donde se encuentra las citas actuales-->
-<br><br><br><br>
-<section class=citasactuales>
-    
-Citas Actuales :
-<?php
-    $hoy = date("F,m,Y");
-    echo $hoy;
-?>
-<br><br>
  
-<?php
-    
-$per=new persona();
+<script >
+$(document).ready(principal);
+function principal(){
 
-print $per->mostrarcitasactuales();
-?>
- 
+var flag1=true;
+$(document).on('keydown','[id=inputime]',function(e){
 
-</section>
+if($(this).val().length==2 && flag1){
 
+$(this).val($(this).val()+":");
+flag1=false;
+
+}
+});
+}
+</script>
+ <br> <br>  <br>  <br>  
+
+<form action="" method="post" target="_blank">
+
+  <p>
+
+    Haz una cita: <input type="date" name="fechacita" min="<?php echo date("Y-m-d");?>" max="210-01-30">
+
+    <input type="submit" value="Enviar datos">
+
+  </p>
+
+</form>
+ <input id="inputime1" type=text>
 </section>
 
 
